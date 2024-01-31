@@ -18,12 +18,13 @@ export default defineNuxtConfig({
         Roboto: true,
       },
     }],
+    '@pinia/nuxt',
   ],
   vite: {
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: ``,
+          additionalData: `@import "./assets/global.scss";`,
         },
       },
     },
