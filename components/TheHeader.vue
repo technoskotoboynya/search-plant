@@ -6,8 +6,8 @@ const nav = ref([
     title: "Описание"
   },
   {
-    link: "/search",
-    title: "Поиск"
+    link: "/catalog",
+    title: "Каталог"
   }
 ])
 </script>
@@ -22,7 +22,7 @@ const nav = ref([
       />
     </nuxt-link>
     <v-spacer></v-spacer>
-    <v-list nav class="d-flex mr-12">
+    <v-list nav class="d-flex mr-md-12">
       <v-list-item v-for="(item, index) in nav" :key="`nav-link-${index}`">
         <nuxt-link
             :to="item.link"
@@ -33,8 +33,8 @@ const nav = ref([
         </nuxt-link>
       </v-list-item>
     </v-list>
-    <v-spacer></v-spacer>
-    <div></div>
+    <v-spacer сlass="d-none d-md-block"></v-spacer>
+    <div сlass="d-none d-md-block"></div>
   </v-app-bar>
 </template>
 
