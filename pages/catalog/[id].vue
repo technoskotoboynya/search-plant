@@ -24,7 +24,7 @@ const pageInfo = plant_from_store.getPlantById(productId)
         <v-row v-for="item in pageInfo.pageDesc" :key="item" class="mb-6 flex-column">
           <h3 class="text-h4 text-secondary-gray mb-4">{{ item.title }}</h3>
           <p v-if="item.subtitle" class="mb-4 text-h6">{{ item.subtitle }}</p>
-          <v-sheet v-if="item.numericList && item.titleList" class="mb-4">
+          <v-sheet v-if="item.numericList || item.titleList" class="mb-4">
             <p class="text-body-1 text-primary mb-4">{{ item.titleList }}</p>
             <p
                 v-for="(item, i) in item.numericList"

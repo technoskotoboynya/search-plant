@@ -10,7 +10,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "preview:host": "cross-env NUXT_HOST=0.0.0.0 NUXT_PORT=8080 nuxt dev"
+    "prod:host": "cross-env NUXT_HOST=0.0.0.0 NUXT_PORT=8080 nuxt dev"
   },
   "devDependencies": {
     "@nuxtjs/google-fonts": "^3.1.3",
