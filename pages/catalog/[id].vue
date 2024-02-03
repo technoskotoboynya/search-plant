@@ -42,6 +42,7 @@ const pageInfo = plant_from_store.getPlantById(productId)
             <v-img
                 :src="item.img"
                 :width="500"
+                :height="400"
                 :rounded="'xl'"
             />
           </v-sheet>
