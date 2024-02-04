@@ -11,6 +11,7 @@ const plant_from_store = useCatalogStore()
       v-model="plant_from_store.searchItem"
       placeholder="Поиск"
       variant="solo-filled"
+      hide-details="true"
   />
 </template>
 

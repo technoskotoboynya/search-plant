@@ -7,7 +7,8 @@ export const useCatalogStore = defineStore('catalog', () => {
             id: 1,
             plant: "Папоротник",
             subtitle: 'Как ухаживать за папоротником в домашних условиях: полив, подкормка, пересадка',
-            type: "Папоротниковые",
+            family: "Папоротниковые",
+            type: "Домашние",
             img: "/catalog/fern1.jpg",
             pageDesc: [
                 {
@@ -95,7 +96,8 @@ export const useCatalogStore = defineStore('catalog', () => {
             id: 2,
             plant: 'Кактус',
             subtitle: 'Как ухаживать за кактусом: исчерпывающее руководство',
-            type: "Кактусовые",
+            family: "Кактусовые",
+            type: "Домашние",
             img: '/catalog/kaktus.jpg',
             pageDesc: [
                 {
@@ -157,12 +159,13 @@ export const useCatalogStore = defineStore('catalog', () => {
                     ]
                 }
             ]
-        }, 
+        },
         {
             id: 3,
             plant: "Лилия",
             subtitle: 'Как ухаживать за Лилией в домашних условиях: полив, подкормка, пересадка',
-            type: "Лилейные",
+            family: "Лилейные",
+            type: "Домашние",
             img: "/catalog/Liles.jpeg",
             pageDesc: [
                 {
@@ -212,12 +215,13 @@ export const useCatalogStore = defineStore('catalog', () => {
                     ]
                 },
             ]
-        },  
+        },
         {
             id: 4,
             plant: "Алоэ вера",
             subtitle: 'Как ухаживать за алоэ вера в домашних условиях: полив, подкормка, пересадка',
-            type: "Алоэ",
+            family: "Алоэ",
+            type: "Домашние",
             img: "/catalog/Aloe.jpg",
             pageDesc: [
                 {
@@ -244,7 +248,7 @@ export const useCatalogStore = defineStore('catalog', () => {
                         "Заболевания. Растение может заболеть только в том случае, если за ним неправильно ухаживать. Наиболее часто оно страдает от гнили, которая появляется от чрезмерно обильного полива.",
                         "Свойства. Часть видов алоэ отличаются целебными свойствами. Они обладают противовоспалительным, иммуностимулирующим, ранозаживляющим, антибактериальным, регенерирующим и иными свойствами."
                     ],
-                    
+
                     img: "/catalog/Aloe.jpg",
 
                 },
@@ -272,14 +276,14 @@ export const useCatalogStore = defineStore('catalog', () => {
                 {
                     title: "Температурный режим",
                     description: [
-                        'В летнее время алоэ развивается и растет в пределах нормы при обычной комнатной температуре. В теплое время года его можно перенести на свежий воздух, при этом для него выбирают место, защищенное от осадков. Если же в летнее время вы не переносите растение на улицу, тогда рекомендуется систематически проветривать помещение, в котором оно находится. Зимой у алоэ наблюдаются период покоя, в связи с этим его рекомендуется переставить в прохладное место (не теплее 14 градусов). Если же в комнате будет теплее, то куст может начать активно вытягиваться, так как зимой солнце не может дать ему необходимое количество света.',   
+                        'В летнее время алоэ развивается и растет в пределах нормы при обычной комнатной температуре. В теплое время года его можно перенести на свежий воздух, при этом для него выбирают место, защищенное от осадков. Если же в летнее время вы не переносите растение на улицу, тогда рекомендуется систематически проветривать помещение, в котором оно находится. Зимой у алоэ наблюдаются период покоя, в связи с этим его рекомендуется переставить в прохладное место (не теплее 14 градусов). Если же в комнате будет теплее, то куст может начать активно вытягиваться, так как зимой солнце не может дать ему необходимое количество света.',
                     ]
                 },
                 {
                     title: "Цветение",
                     img: "/catalog/Aloe4.jpg",
                     description: [
-                        'Чтобы алоэ зацвело, ему необходим период покоя, который возможен только при продолжительном световом дне и прохладе. Обеспечить растению подобные условия при выращивании в квартире довольно сложно, в связи с этим его цветение можно увидеть крайне редко.',                        
+                        'Чтобы алоэ зацвело, ему необходим период покоя, который возможен только при продолжительном световом дне и прохладе. Обеспечить растению подобные условия при выращивании в квартире довольно сложно, в связи с этим его цветение можно увидеть крайне редко.',
                     ]
                 },
                 {
@@ -297,17 +301,37 @@ export const useCatalogStore = defineStore('catalog', () => {
         }
     ]
     const searchItem = ref('')
+    const filters: string[] = ['Домашние', 'Садовые',]
+    let selectFilter = ref('')
+
     function getPlantById(plant: string | string[]) {
         return catalogData.find(product => product.plant === plant);
     }
 
     const filteredData = computed(() => {
-        if (!searchItem.value) return catalogData;
-        return catalogData.filter(item =>
-            item.plant.toLowerCase().includes(searchItem.value.toLowerCase()) ||
-            item.type.toLowerCase().includes(searchItem.value.toLowerCase())
-        );
+        let filtered = catalogData;
+
+        if (searchItem.value) {
+            filtered = filtered.filter(item =>
+                item.plant.toLowerCase().includes(searchItem.value.toLowerCase()) ||
+                item.family.toLowerCase().includes(searchItem.value.toLowerCase()) ||
+                item.type.toLowerCase().includes(searchItem.value.toLowerCase())
+            );
+        }
+
+        if (selectFilter.value) {
+            filtered = filtered.filter(item => item.type === selectFilter.value);
+        }
+
+        return filtered;
     });
 
-    return { catalogData, getPlantById, searchItem, filteredData }
+    return {
+        catalogData,
+        getPlantById,
+        searchItem,
+        filteredData,
+        filters,
+        selectFilter
+    }
 })

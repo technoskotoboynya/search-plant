@@ -8,7 +8,14 @@ const plant_from_store = useCatalogStore()
 <template>
   <section class="mt-8">
     <v-container>
-      <Search />
+      <v-row class="align-center">
+        <v-col cols="12" md="1">
+          <Filter />
+        </v-col>
+        <v-col>
+          <Search cols="12" md="10"/>
+        </v-col>
+      </v-row>
       <v-row>
         <transition-group name="card-transition">
           <v-col cols="12" md="6" lg="4" v-for="item in plant_from_store.filteredData" :key="item.id">
@@ -18,6 +25,7 @@ const plant_from_store = useCatalogStore()
                   :subtitle="item.subtitle"
                   :image="item.img"
                   :type="item.type"
+                  :family="item.family"
               />
             </nuxt-link>
           </v-col>
